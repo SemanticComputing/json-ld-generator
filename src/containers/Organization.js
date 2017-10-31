@@ -1,13 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextInput from '../components/TextInput';
+import Select from '../components/Select';
 import JsonLdDisplay from '../components/JsonLdDisplay';
 import { updateOrganization } from '../actions';
 import { object, func } from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
 
-let Organization = ({ updateOrganization, jsonld }) => {
+const ORG_TYPES = [
+  {
+    id: 'Organization',
+    name: 'Organisaatio'
+  },
+  {
+    id: 'EducationalOrganization',
+    name: 'Opetusorganisaatio'
+  }
+];
 
+let Organization = ({ updateOrganization, jsonld }) => {
   return (
     <Container>
       <Row>
@@ -17,6 +28,7 @@ let Organization = ({ updateOrganization, jsonld }) => {
       </Row>
       <Row>
         <Col>
+          <Select options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
           <TextInput placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
           <TextInput placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
           <TextInput placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
