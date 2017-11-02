@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextInput from '../components/TextInput';
+import ListInput from '../components/ListInput';
 import Select from '../components/Select';
 import JsonLdDisplay from '../components/JsonLdDisplay';
 import { updateOrganization } from '../actions';
@@ -18,7 +19,7 @@ const ORG_TYPES = [
   }
 ];
 
-let Organization = ({ updateOrganization, jsonld }) => {
+let Organization = ({ updateOrganization, organization }) => {
   return (
     <Container>
       <Row>
@@ -29,13 +30,14 @@ let Organization = ({ updateOrganization, jsonld }) => {
       <Row>
         <Col>
           <Select options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
-          <TextInput placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
-          <TextInput placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
-          <TextInput placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
-          <TextInput placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
+          <TextInput text={organization.name} placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
+          <TextInput text={organization.alternateName} placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
+          <TextInput text={organization.url} placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
+          <TextInput text={organization.logo} placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
+          <ListInput values={organization.sameAs} placeholder={'Sosiaalinen media'} onChange={(sameAs) => updateOrganization({ sameAs })} />
         </Col>
         <Col>
-          <JsonLdDisplay jsonld={jsonld} />
+          <JsonLdDisplay jsonld={organization} />
         </Col>
       </Row>
     </Container>
@@ -43,7 +45,7 @@ let Organization = ({ updateOrganization, jsonld }) => {
 };
 
 const mapStateToProps = (state) => ({
-  jsonld: state.organization
+  organization: state.organization
 });
 
 const mapDispatchToProps = ({
@@ -56,8 +58,9 @@ Organization = connect(
 )(Organization);
 
 Organization.propTypes = {
-  jsonld: object,
-  updateOrganization: func
+  organization: object,
+  updateOrganization: func,
+  addToOrganization: func
 };
 
 export default Organization;

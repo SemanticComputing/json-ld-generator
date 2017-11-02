@@ -3,20 +3,20 @@ import { func, string, array } from 'prop-types';
 import { map } from 'lodash';
 import { Input } from 'reactstrap';
 
-const TextInput = ({ onChange, options }) => {
+const Select = ({ onChange, options }) => {
   return (
     <div>
       <Input type="select" onChange={(e) => onChange(e.target.value)}>
-        {map(options, (option) => <option value={option.id}>{option.name}</option>)}
+        {map(options, (option) => <option key={option.id} value={option.id}>{option.name}</option>)}
       </Input>
     </div>
   );
 };
 
-TextInput.propTypes = {
+Select.propTypes = {
   onChange: func,
   placeholder: string,
   options: array
 };
 
-export default TextInput;
+export default Select;
