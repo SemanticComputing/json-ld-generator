@@ -19,6 +19,14 @@ const ORG_TYPES = [
   }
 ];
 
+const isValidUrl = (value) => {
+  if (!value)
+    return undefined;
+  let a  = document.createElement('a');
+  a.href = value;
+  return !!(a.host && a.host !== window.location.host);
+};
+
 let Organization = ({ updateOrganization, organization }) => {
   return (
     <Container>
@@ -34,7 +42,7 @@ let Organization = ({ updateOrganization, organization }) => {
           <TextInput text={organization.alternateName} placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
           <TextInput text={organization.url} placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
           <TextInput text={organization.logo} placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
-          <ListInput values={organization.sameAs} placeholder={'Sosiaalinen media'} onChange={(sameAs) => updateOrganization({ sameAs })} />
+          <ListInput isValid={isValidUrl} values={organization.sameAs} placeholder={'Sosiaalinen media'} onChange={(sameAs) => updateOrganization({ sameAs })} />
         </Col>
         <Col>
           <JsonLdDisplay jsonld={organization} />
