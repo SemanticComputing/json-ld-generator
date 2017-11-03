@@ -7,7 +7,7 @@ import Select from '../components/Select';
 import JsonLdDisplay from '../components/JsonLdDisplay';
 import { updateOrganization } from '../actions';
 import { object, func } from 'prop-types';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label } from 'reactstrap';
 
 const ORG_TYPES = [
   {
@@ -30,12 +30,32 @@ let Organization = ({ updateOrganization, organization }) => {
       </Row>
       <Row>
         <Col>
-          <Select options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
-          <TextInput value={organization.name} placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
-          <TextInput value={organization.alternateName} placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
-          <UrlInput value={organization.url} placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
-          <UrlInput value={organization.logo} placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
-          <ListInput values={organization.sameAs} placeholder={'Sosiaalinen media'} Input={UrlInput} onChange={(sameAs) => updateOrganization({ sameAs })} />
+          <Form>
+            <FormGroup>
+              <Label for='orgType'>Organisaation tyyppi</Label>
+              <Select id='orgType' options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
+            </FormGroup>
+            <FormGroup>
+              <Label for='orgName'>Nimi</Label>
+              <TextInput id='orgName' value={organization.name} placeholder='Nimi' onChange={(name) => updateOrganization({ name })} />
+            </FormGroup>
+            <FormGroup>
+              <Label for='orgAltName'>Vaihtoehtoinen nimi</Label>
+              <TextInput id='orgAltName' value={organization.alternateName} placeholder='Vaihtoehtoinen nimi' onChange={(alternateName) => updateOrganization({ alternateName })} />
+            </FormGroup>
+            <FormGroup>
+              <Label for='orgUrl'>Verkko-osoite</Label>
+              <UrlInput id='orgUrl' value={organization.url} placeholder='https://esimerkki.fi' onChange={(url) => updateOrganization({ url })} />
+            </FormGroup>
+            <FormGroup>
+              <Label for='orgLogo'>Logo</Label>
+              <UrlInput id='orgLogo' value={organization.logo} placeholder='https://esimerkki.fi/logo.png' onChange={(logo) => updateOrganization({ logo })} />
+            </FormGroup>
+            <FormGroup>
+              <Label for='orgSameAs'>Sosiaalinen media</Label>
+              <ListInput id='orgSameAs' values={organization.sameAs} placeholder='https://facebook.com/esimerkki' Input={UrlInput} onChange={(sameAs) => updateOrganization({ sameAs })} />
+            </FormGroup>
+          </Form>
         </Col>
         <Col>
           <JsonLdDisplay jsonld={organization} />

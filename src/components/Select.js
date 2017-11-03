@@ -5,11 +5,9 @@ import { Input } from 'reactstrap';
 
 const Select = ({ onChange, options }) => {
   return (
-    <div>
-      <Input type="select" onChange={(e) => onChange(e.target.value)}>
-        {map(options, (option) => <option key={option.id} value={option.id}>{option.name}</option>)}
-      </Input>
-    </div>
+    <Input type="select" onChange={(e) => onChange(e.target.value)}>
+      {map(options, (option) => <option key={option.id} value={option.id}>{option.name}</option>)}
+    </Input>
   );
 };
 
