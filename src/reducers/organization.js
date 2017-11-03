@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   '@context': 'http://schema.org',
   '@type': 'Organization',
   name: '',
+  alternateName: '',
   url: '',
   logo: ''
 };

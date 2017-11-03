@@ -1,11 +1,9 @@
 import React from 'react';
 import { func, string, array } from 'prop-types';
-import { InputGroup, Input, InputGroupButton, Button } from 'reactstrap';
+import { InputGroup, InputGroupButton, Button } from 'reactstrap';
 import { map, isEmpty } from 'lodash';
 
-const ListInput = ({ onChange, isValid, placeholder, values = [] }) => {
-
-  isValid = isValid || (() => undefined);
+const ListInput = ({ Input, onChange, isValid, placeholder, values = [] }) => {
 
   const handleChange = (value, index) => {
     let newValues = values.slice();
@@ -25,7 +23,7 @@ const ListInput = ({ onChange, isValid, placeholder, values = [] }) => {
 
   const valuesList = map(values.concat(['']), (value, index) => (
     <InputGroup key={index}>
-      <Input valid={isValid(value)} value={value} placeholder={placeholder} onChange={(e) => handleChange(e.target.value, index)} />
+      <Input value={value} placeholder={placeholder} onChange={(value) => handleChange(value, index)} />
       {value ? <InputGroupButton><Button onClick={() => handleRemove(index)} color="danger">X</Button></InputGroupButton> : ''}
     </InputGroup>
   ));
@@ -41,6 +39,7 @@ ListInput.propTypes = {
   onChange: func,
   onDelete: func,
   isValid: func,
+  Input: func,
   placeholder: string,
   values: array
 };
