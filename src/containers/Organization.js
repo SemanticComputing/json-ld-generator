@@ -31,15 +31,11 @@ let Organization = ({ updateOrganization, organization }) => {
       <Row>
         <Col>
           <Select options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
-          <TextInput text={organization.name} placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
-          <TextInput text={organization.alternateName} placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
-          <TextInput text={organization.url} placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
-          <TextInput text={organization.logo} placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
-          <ListInput
-            values={organization.sameAs}
-            placeholder={'Sosiaalinen media'}
-            Input={UrlInput}
-            onChange={(sameAs) => updateOrganization({ sameAs })} />
+          <TextInput value={organization.name} placeholder={'Nimi'} onChange={(name) => updateOrganization({ name })} />
+          <TextInput value={organization.alternateName} placeholder={'Vaihtoehtoinen nimi'} onChange={(alternateName) => updateOrganization({ alternateName })} />
+          <UrlInput value={organization.url} placeholder={'Verkko-osoite'} onChange={(url) => updateOrganization({ url })} />
+          <UrlInput value={organization.logo} placeholder={'Logo (verkko-osoite)'} onChange={(logo) => updateOrganization({ logo })} />
+          <ListInput values={organization.sameAs} placeholder={'Sosiaalinen media'} Input={UrlInput} onChange={(sameAs) => updateOrganization({ sameAs })} />
         </Col>
         <Col>
           <JsonLdDisplay jsonld={organization} />

@@ -2,11 +2,11 @@ import React from 'react';
 import { func, string } from 'prop-types';
 import { Input } from 'reactstrap';
 
-const TextInput = ({ onChange, text, placeholder, isValid }) => {
+const TextInput = ({ onChange, value, placeholder, isValid }) => {
   isValid = isValid || (() => undefined);
 
   return (
-    <Input valid={isValid(text)} value={text} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
+    <Input valid={isValid(value)} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
   );
 };
 
@@ -14,7 +14,7 @@ TextInput.propTypes = {
   onChange: func,
   isValid: func,
   placeholder: string,
-  text: string
+  value: string
 };
 
 export default TextInput;

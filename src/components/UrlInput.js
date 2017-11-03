@@ -12,7 +12,7 @@ const UrlInput = ({ onChange, value, placeholder }) => {
   };
 
   return (
-    <TextInput isValid={isValidUrl} text={value} placeholder={placeholder} onChange={onChange} />
+    <TextInput isValid={isValidUrl} value={value} placeholder={placeholder} onChange={onChange} />
   );
 };
 

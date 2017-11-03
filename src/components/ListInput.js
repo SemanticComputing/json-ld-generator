@@ -3,7 +3,7 @@ import { func, string, array } from 'prop-types';
 import { InputGroup, InputGroupButton, Button } from 'reactstrap';
 import { map, isEmpty } from 'lodash';
 
-const ListInput = ({ Input, onChange, isValid, placeholder, values = [] }) => {
+const ListInput = ({ Input, onChange, placeholder, values = [] }) => {
 
   const handleChange = (value, index) => {
     let newValues = values.slice();
@@ -38,7 +38,6 @@ const ListInput = ({ Input, onChange, isValid, placeholder, values = [] }) => {
 ListInput.propTypes = {
   onChange: func,
   onDelete: func,
-  isValid: func,
   Input: func,
   placeholder: string,
   values: array
