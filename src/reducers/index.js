@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import organization from './organization';
+import validation from './validation';
 
 const reducer = combineReducers({
-  organization
+  organization,
+  validation
 });
 
 export default reducer;

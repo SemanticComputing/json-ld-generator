@@ -1,18 +1,11 @@
 import React from 'react';
 import { func, string } from 'prop-types';
 import TextInput from './TextInput';
+import validators from '../lib/validators';
 
 const UrlInput = ({ onChange, value, placeholder }) => {
-  const isValidUrl = (value) => {
-    if (!value)
-      return undefined;
-    let a  = document.createElement('a');
-    a.href = value;
-    return !!(a.host && a.host !== window.location.host);
-  };
-
   return (
-    <TextInput isValid={isValidUrl} value={value} placeholder={placeholder} onChange={onChange} />
+    <TextInput valid={validators.isValidUrl(value)} value={value} placeholder={placeholder} onChange={onChange} />
   );
 };
 

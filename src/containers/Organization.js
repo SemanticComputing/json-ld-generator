@@ -5,9 +5,9 @@ import UrlInput from '../components/UrlInput';
 import ListInput from '../components/ListInput';
 import Select from '../components/Select';
 import JsonLdDisplay from '../components/JsonLdDisplay';
-import { updateOrganization } from '../actions';
+import { updateOrganization, validateOrganization } from '../actions';
 import { object, func } from 'prop-types';
-import { Container, Row, Col, Form, FormGroup, Label } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, FormFeedback, Label, InputGroup } from 'reactstrap';
 
 const ORG_TYPES = [
   {
@@ -20,11 +20,16 @@ const ORG_TYPES = [
   }
 ];
 
-let Organization = ({ updateOrganization, organization }) => {
+let Organization = ({ updateOrganization, validateOrganization, organization, validation }) => {
+  const handleImgError = (prop, value) => {
+    const validationVal = value ? false : undefined;
+    return validateOrganization({ [prop]: validationVal });
+  };
+
   return (
     <Container>
       <Row>
-        <Col>
+        <Col className="col-md-6 col-sm-12">
           <h2>Organisaatio</h2>
         </Col>
       </Row>
@@ -45,11 +50,19 @@ let Organization = ({ updateOrganization, organization }) => {
             </FormGroup>
             <FormGroup>
               <Label for='orgUrl'>Verkko-osoite</Label>
-              <UrlInput id='orgUrl' value={organization.url} placeholder='https://esimerkki.fi' onChange={(url) => updateOrganization({ url })} />
+              <UrlInput id='orgUrl' value={organization.url}
+                placeholder='https://esimerkki.fi' onChange={(url) => updateOrganization({ url })} />
+              <FormFeedback>Arvo ei kelpaa verkko-osoitteeksi</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for='orgLogo'>Logo</Label>
-              <UrlInput id='orgLogo' value={organization.logo} placeholder='https://esimerkki.fi/logo.png' onChange={(logo) => updateOrganization({ logo })} />
+              <InputGroup>
+                <TextInput id='orgLogo' valid={validation.logo} value={organization.logo}
+                  placeholder='https://esimerkki.fi/logo.png' onChange={(logo) => updateOrganization({ logo })} />
+                <img className="img img-sm" src={organization.logo} onLoad={() => validateOrganization({ logo: true })}
+                  onError={() => handleImgError('logo', organization.logo)} />
+                <FormFeedback for='orgLogo'>Osoitteesta ei löytynyt kuvaa</FormFeedback>
+              </InputGroup>
             </FormGroup>
             <FormGroup>
               <Label for='orgSameAs'>Sosiaalinen media</Label>
@@ -57,7 +70,7 @@ let Organization = ({ updateOrganization, organization }) => {
             </FormGroup>
           </Form>
         </Col>
-        <Col>
+        <Col className="col-md-6 col-sm-12">
           <JsonLdDisplay jsonld={organization} />
         </Col>
       </Row>
@@ -66,11 +79,13 @@ let Organization = ({ updateOrganization, organization }) => {
 };
 
 const mapStateToProps = (state) => ({
-  organization: state.organization
+  organization: state.organization,
+  validation: state.validation
 });
 
 const mapDispatchToProps = ({
-  updateOrganization
+  updateOrganization,
+  validateOrganization
 });
 
 Organization = connect(
@@ -80,7 +95,9 @@ Organization = connect(
 
 Organization.propTypes = {
   organization: object,
+  validation: object,
   updateOrganization: func,
+  validateOrganization: func,
   addToOrganization: func
 };
 

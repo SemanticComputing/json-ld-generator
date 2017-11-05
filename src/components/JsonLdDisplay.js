@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 
 const JsonLdDisplay = ({ jsonld }) => {
   return (
-    <pre>
+    <pre className="pre-x-scrollable">
       {'<script type="application/ld+json">'}
       <br />
       {JSON.stringify(jsonld, null, 2)}
