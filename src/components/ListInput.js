@@ -24,7 +24,7 @@ const ListInput = ({ Input, onChange, placeholder, values = [] }) => {
   const valuesList = map(values.concat(['']), (value, index) => (
     <InputGroup key={index}>
       <Input value={value} placeholder={placeholder} onChange={(value) => handleChange(value, index)} />
-      {value ? <InputGroupButton><Button onClick={() => handleRemove(index)} color="danger">X</Button></InputGroupButton> : ''}
+      {value ? <InputGroupButton><Button onClick={() => handleRemove(index)} color="dark">X</Button></InputGroupButton> : ''}
     </InputGroup>
   ));
 
