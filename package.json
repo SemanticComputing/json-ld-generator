@@ -7,11 +7,11 @@
     "bootstrap": "^4.0.0-beta.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.15",
-    "reactstrap": "^5.0.0-alpha.3",
+    "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2"
   },
   "scripts": {
@@ -23,10 +23,10 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "eslint": "^4.10.0",
+    "eslint": "^4.12.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-react": "^7.4.0",
-    "gh-pages": "^1.0.0",
-    "redux-devtools": "^3.4.0"
+    "eslint-plugin-react": "^7.5.1",
+    "gh-pages": "^1.1.0",
+    "redux-devtools": "^3.4.1"
   }
 }
