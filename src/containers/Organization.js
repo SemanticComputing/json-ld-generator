@@ -4,10 +4,9 @@ import TextInput from '../components/TextInput';
 import UrlInput from '../components/UrlInput';
 import ListInput from '../components/ListInput';
 import Select from '../components/Select';
-import JsonLdDisplay from '../components/JsonLdDisplay';
 import { updateOrganization, validateOrganization } from '../actions';
 import { object, func } from 'prop-types';
-import { Container, Row, Col, Form, FormGroup, FormFeedback, Label, InputGroup } from 'reactstrap';
+import { Form, FormGroup, FormFeedback, Label, InputGroup } from 'reactstrap';
 
 const ORG_TYPES = [
   {
@@ -27,60 +26,49 @@ let Organization = ({ updateOrganization, validateOrganization, organization, va
   };
 
   return (
-    <Container>
-      <Row>
-        <Col className="col-md-6 col-sm-12">
-          <h2>Organisaatio</h2>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form>
-            <FormGroup>
-              <Label for='orgType'>Organisaation tyyppi</Label>
-              <Select id='orgType' options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='orgName'>Nimi</Label>
-              <TextInput id='orgName' value={organization.name} placeholder='Nimi' onChange={(name) => updateOrganization({ name })} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='orgAltName'>Vaihtoehtoinen nimi</Label>
-              <TextInput id='orgAltName' value={organization.alternateName} placeholder='Vaihtoehtoinen nimi' onChange={(alternateName) => updateOrganization({ alternateName })} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='orgUrl'>Verkko-osoite</Label>
-              <UrlInput id='orgUrl' value={organization.url}
-                placeholder='https://esimerkki.fi' onChange={(url) => updateOrganization({ url })} />
-              <FormFeedback>Arvo ei kelpaa verkko-osoitteeksi</FormFeedback>
-            </FormGroup>
-            <FormGroup>
-              <Label for='orgLogo'>Logo</Label>
-              <InputGroup>
-                <TextInput id='orgLogo' valid={validation.logo} value={organization.logo}
-                  placeholder='https://esimerkki.fi/logo.png' onChange={(logo) => updateOrganization({ logo })} />
-                <img className="img img-sm" src={organization.logo} onLoad={() => validateOrganization({ logo: true })}
-                  onError={() => handleImgError('logo', organization.logo)} />
-                <FormFeedback for='orgLogo'>Osoitteesta ei löytynyt kuvaa</FormFeedback>
-              </InputGroup>
-            </FormGroup>
-            <FormGroup>
-              <Label for='orgSameAs'>Sosiaalinen media</Label>
-              <ListInput id='orgSameAs' values={organization.sameAs} placeholder='https://facebook.com/esimerkki' Input={UrlInput} onChange={(sameAs) => updateOrganization({ sameAs })} />
-            </FormGroup>
-          </Form>
-        </Col>
-        <Col className="col-md-6 col-sm-12">
-          <JsonLdDisplay jsonld={organization} />
-        </Col>
-      </Row>
-    </Container>
+    <div>
+      <h2>Organisaatio</h2>
+      <Form>
+        <FormGroup>
+          <Label for='orgType'>Organisaation tyyppi</Label>
+          <Select id='orgType' options={ORG_TYPES} onChange={(type) => updateOrganization({ '@type': type })} />
+        </FormGroup>
+        <FormGroup>
+          <Label for='orgName'>Nimi</Label>
+          <TextInput id='orgName' value={organization.name} placeholder='Nimi' onChange={(name) => updateOrganization({ name })} />
+        </FormGroup>
+        <FormGroup>
+          <Label for='orgAltName'>Vaihtoehtoinen nimi</Label>
+          <TextInput id='orgAltName' value={organization.alternateName} placeholder='Vaihtoehtoinen nimi' onChange={(alternateName) => updateOrganization({ alternateName })} />
+        </FormGroup>
+        <FormGroup>
+          <Label for='orgUrl'>Verkko-osoite</Label>
+          <UrlInput id='orgUrl' value={organization.url}
+            placeholder='https://esimerkki.fi' onChange={(url) => updateOrganization({ url })} />
+          <FormFeedback>Arvo ei kelpaa verkko-osoitteeksi</FormFeedback>
+        </FormGroup>
+        <FormGroup>
+          <Label for='orgLogo'>Logo</Label>
+          <InputGroup>
+            <TextInput id='orgLogo' valid={validation.logo} value={organization.logo}
+              placeholder='https://esimerkki.fi/logo.png' onChange={(logo) => updateOrganization({ logo })} />
+            <img className="img img-sm" src={organization.logo} onLoad={() => validateOrganization({ logo: true })}
+              onError={() => handleImgError('logo', organization.logo)} />
+            <FormFeedback htmlFor='orgLogo'>Osoitteesta ei löytynyt kuvaa</FormFeedback>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <Label for='orgSameAs'>Sosiaalinen media</Label>
+          <ListInput id='orgSameAs' values={organization.sameAs} placeholder='https://facebook.com/esimerkki' Input={UrlInput} onChange={(sameAs) => updateOrganization({ sameAs })} />
+        </FormGroup>
+      </Form>
+    </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   organization: state.organization,
-  validation: state.validation
+  validation: state.validation.organization
 });
 
 const mapDispatchToProps = ({

@@ -1,6 +1,6 @@
 import React  from 'react';
 import '../App.css';
-import Organization from '../containers/Organization';
+import AnnotationSelector from '../containers/AnnotationSelector';
 import { Container } from 'reactstrap';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
         <h1 className="App-title">JSON-LD Generator</h1>
       </header>
       <Container>
-        <Organization />
+        <AnnotationSelector />
       </Container>
     </div>
   );
